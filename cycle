@@ -1,0 +1,51 @@
+using System;
+
+class Node
+{
+    public int data;
+    public Node next;
+
+    public Node(int value)
+    {
+        data = value;
+        next = null;
+    }
+}
+
+class Program
+{
+    static bool HasCycle(Node head)
+    {
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null)
+        {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast)
+                return true;
+        }
+
+        return false;
+    }
+
+    static void Main()
+    {
+        Node head = new Node(10);
+        Node second = new Node(20);
+        Node third = new Node(30);
+
+        head.next = second;
+        second.next = third;
+
+        // Create a cycle
+        third.next = second;
+
+        if (HasCycle(head))
+            Console.WriteLine("Cycle Exists");
+        else
+            Console.WriteLine("No Cycle");
+    }
+}
